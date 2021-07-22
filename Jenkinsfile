@@ -1,6 +1,8 @@
 node {
 	
     def application = "devopsexample"
+    
+    //Its mandatory to change the Docker Hub Account ID after this Repo is forked by an other person
     def dockerhubaccountid = "vikidvg"
 	
     // reference to maven
@@ -9,7 +11,6 @@ node {
 
     // holds reference to docker image
     def dockerImage
-    // ip address of the docker private repository(nexus)
  
     def dockerImageTag = "${dockerhubaccountid}/${application}:${env.BUILD_NUMBER}"
     
@@ -31,7 +32,7 @@ node {
       // build docker image
       dockerImage = docker.build("${dockerhubaccountid}/${application}:${env.BUILD_NUMBER}")
     }
-	
+	//push image to remote repository , in your jenkins you have to created the global credentials similar to the 'dockerHub' (credential ID)
     stage('Push Image'){
 	 echo "Docker Image Tag Name ---> ${dockerImageTag}"
 	     docker.withRegistry('', 'dockerHub') {
@@ -41,23 +42,16 @@ node {
 	}
    
     stage('Deploy Docker Image'){
-      
-      // deploy docker image to nexus
-		
-     
+	   //remove the container which is already running, when running 1st time named container will not be available so we are usign 'True' 
+	  sh "docker rm -f \$(docker ps -f name=devopsexample -q) || true"   
 	    
-	  sh "docker rm -f \$(docker ps -f name=devopsexample -q) || true"
+	    //start container with the remote image
+	  sh "docker run --name devopsexample -d -p 2222:2222 ${dockerhubaccountid}/${application}:${env.BUILD_NUMBER}"  
 	  
-	    
-	    
-	  sh "docker run --name devopsexample -d -p 2222:2222 ${dockerhubaccountid}/${application}:${env.BUILD_NUMBER}"
-	  
-	  
-      
     }
 	
     stage('Remove old images') {
-		// remove docker pld images
+		// remove docker old images
 		sh("docker rmi ${dockerhubaccountid}/${application}:latest -f")
    }
 }
