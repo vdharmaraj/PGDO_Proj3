@@ -11,7 +11,7 @@ node {
     
     stage('Clone Repo') { // for display purposes
       // Get some code from a GitHub repository
-      git 'https://github.com/vdharmaraj/PGDO_Proj3.git'
+      git url:'https://github.com/vdharmaraj/PGDO_Proj3.git',branch:'main'
       // Get the Maven tool.
       // ** NOTE: This 'maven-3.5.2' Maven tool must be configured
       // **       in the global configuration.           
