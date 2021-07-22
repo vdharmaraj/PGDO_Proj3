@@ -50,9 +50,14 @@ node {
 	  
 	    
 	    
-	  sh "docker run --name devopsexample -d -p 2222:2222 devopsexample:${env.BUILD_NUMBER}"
+	  sh "docker run --name devopsexample -d -p 2222:2222 ${dockerhubaccountid}/${application}:${env.BUILD_NUMBER}"
 	  
 	  
       
     }
+	
+    stage('Remove old images') {
+		// remove docker pld images
+		sh("docker rmi ${dockerhubaccountid}/${application}:latest -f")
+   }
 }
