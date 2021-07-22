@@ -28,7 +28,7 @@ node {
       sh "'${mvnHome}/bin/mvn' clean install"
     }
 		
-    stage('Build New Docker Image') {
+    stage('Build Docker Image with new code') {
       // build docker image
       dockerImage = docker.build("${dockerhubaccountid}/${application}:${env.BUILD_NUMBER}")
     }
