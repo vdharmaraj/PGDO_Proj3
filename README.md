@@ -22,7 +22,7 @@
     
 //To push image to remote repository , in your jenkins server you have to create the global credentials similar to the 'dockerHub' (credential ID)</br>
   
-	     docker.withRegistry('', 'dockerHub') {</br>
-             dockerImage.push("${env.BUILD_NUMBER}")</br>
-             dockerImage.push("latest")</br>
-            }</br>
+	     docker.withRegistry('', 'dockerHub') {
+             dockerImage.push("${env.BUILD_NUMBER}")
+             dockerImage.push("latest")
+            }
