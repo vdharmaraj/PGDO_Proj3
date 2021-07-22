@@ -1,4 +1,8 @@
 node {
+	
+    def application = "devopsexample"
+    def dockerhubaccountid = "vikidvg"
+	
     // reference to maven
     // ** NOTE: This 'maven-3.5.2' Maven tool must be configured in the Jenkins Global Configuration.   
     def mvnHome = tool 'maven-3.5.2'
@@ -7,7 +11,7 @@ node {
     def dockerImage
     // ip address of the docker private repository(nexus)
  
-    def dockerImageTag = "devopsexample${env.BUILD_NUMBER}"
+    def dockerImageTag = "${dockerhubaccountid}/${application}:${env.BUILD_NUMBER}"
     
     stage('Clone Repo') { // for display purposes
       // Get some code from a GitHub repository
@@ -25,21 +29,26 @@ node {
 		
     stage('Build Docker Image') {
       // build docker image
-      dockerImage = docker.build("devopsexample:${env.BUILD_NUMBER}")
+      dockerImage = docker.build("${dockerhubaccountid}/${application}:${env.BUILD_NUMBER}")
     }
+	
+    stage('Push Image'){
+	 echo "Docker Image Tag Name ---> ${dockerImageTag}"
+	     docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
+             dockerImage.push("${env.BUILD_NUMBER}")
+             dockerImage.push("latest")
+            }
+	}
    
     stage('Deploy Docker Image'){
       
       // deploy docker image to nexus
 		
-      echo "Docker Image Tag Name: ${dockerImageTag}"
+     
 	    
 	  sh "docker rm -f \$(docker ps -f name=devopsexample -q) || true"
 	  
-	    docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
-             //dockerImage.push("${env.BUILD_NUMBER}")
-             dockerImage.push("latest")
-            }
+	    
 	    
 	  sh "docker run --name devopsexample -d -p 2222:2222 devopsexample:${env.BUILD_NUMBER}"
 	  
