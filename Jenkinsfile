@@ -34,7 +34,7 @@ node {
 	
     stage('Push Image'){
 	 echo "Docker Image Tag Name ---> ${dockerImageTag}"
-	     docker.withRegistry('https://registry.hub.docker.com', 'dockerHub') {
+	     docker.withRegistry('', 'dockerHub') {
              dockerImage.push("${env.BUILD_NUMBER}")
              dockerImage.push("latest")
             }
