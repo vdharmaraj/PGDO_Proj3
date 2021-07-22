@@ -33,10 +33,8 @@ node {
       // deploy docker image to nexus
 		
       echo "Docker Image Tag Name: ${dockerImageTag}"
-	  
-	  sh "docker stop devopsexample"
-	  
-	  sh "docker rm devopsexample"
+	    
+	  sh "docker rm -f $(docker ps -f name=devopsexample -q)"
 	  
 	  sh "docker run --name devopsexample -d -p 2222:2222 devopsexample:${env.BUILD_NUMBER}"
 	  
