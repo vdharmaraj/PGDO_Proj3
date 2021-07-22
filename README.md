@@ -17,7 +17,7 @@
 <h2>Tools required:</h2> Docker, Docker Hub, GitHub, Git, Linux (Ubuntu), Jenkins  </br>
 
 <h2>Mandatory changes to be made in Jenkinsfile when you want to use this project</h2>
-1. Its mandatory to change the Docker Hub Account ID after this Repo is forked by an other person </br>
+1. Its mandatory to change the Docker Hub Account ID after this Repo is forked/cloned by an other person </br>
     def dockerhubaccountid = "vikidvg" </br>
     
 
@@ -27,3 +27,5 @@
              dockerImage.push("${env.BUILD_NUMBER}")
              dockerImage.push("latest")
             }
+	    
+3. Update your Forked/cloned Repo URL in the stage('Clone Repo') 
