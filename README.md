@@ -15,3 +15,14 @@
 
 
 <h2>Tools required:</h2> Docker, Docker Hub, GitHub, Git, Linux (Ubuntu), Jenkins  </br>
+
+<h2>Mandatory changes to be made in Jenkinsfile when you want to use this project</h2>
+//Its mandatory to change the Docker Hub Account ID after this Repo is forked by an other person </br>
+    def dockerhubaccountid = "vikidvg" </br>
+    
+//To push image to remote repository , in your jenkins server you have to create the global credentials similar to the 'dockerHub' (credential ID)</br>
+  
+	     docker.withRegistry('', 'dockerHub') {</br>
+             dockerImage.push("${env.BUILD_NUMBER}")</br>
+             dockerImage.push("latest")</br>
+            }</br>
