@@ -1,5 +1,5 @@
 # PGDO_Proj3
-<h1>Build a Docker Jenkins Pipeline to Implement CI/CD Workflow </h1> </br>
+<h1>Project: <i>Build a Docker Jenkins Pipeline to Implement CI/CD Workflow</i> </h1> </br>
 
 
 <h2>Objective:</h2> Demonstrate the continuous integration and delivery by building a Docker Jenkins Pipeline.  </br>
@@ -16,8 +16,15 @@
 
 <h2>Tools required:</h2> Docker, Docker Hub, GitHub, Git, Linux (Ubuntu), Jenkins  </br>
 
+<h2>Project Expected Result:</h2>
+Jenkins pipeline with stages as below demonstrating the Springboot application build and deployment process automated with Docker and Jenkins </br>
+![alt text](https://github.com/vdharmaraj/PGDO_Proj3/blob/681fdb351bdec410700e161758e2cacc4ccc9bed/Documentation/Jenkins_pipeline_result.JPG?raw=true)
+
+<h2>Project Documentation</h2>
+Click [here](https://github.com/vdharmaraj/PGDO_Proj3/blob/681fdb351bdec410700e161758e2cacc4ccc9bed/Documentation/PG%20DO%20-%20DevOps%20Certification%20Training_Project-3_Vignesh_Dharmaraj.pdf) to access the project documentation I have created to submit for my DevOps PG certification program requirements   
+
 <h2>Mandatory changes to be made in Jenkinsfile when you want to use this project</h2>
-1. Its mandatory to change the Docker Hub Account ID after this Repo is forked/cloned by an other person </br>
+1. Its mandatory to change the Docker Hub Account ID after this Repo is forked/cloned by an other person</br>
     def dockerhubaccountid = "vikidvg" </br>
     
 
