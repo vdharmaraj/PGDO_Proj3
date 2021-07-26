@@ -18,14 +18,26 @@
 
 <h2>Project Expected Result:</h2>
 Jenkins pipeline with stages as below demonstrating the Springboot application build and deployment process automated with Docker and Jenkins </br>
-![alt text](https://github.com/vdharmaraj/PGDO_Proj3/blob/681fdb351bdec410700e161758e2cacc4ccc9bed/Documentation/Jenkins_pipeline_result.JPG?raw=true)
+[pipeline output image](https://github.com/vdharmaraj/PGDO_Proj3/blob/681fdb351bdec410700e161758e2cacc4ccc9bed/Documentation/Jenkins_pipeline_result.JPG?raw=true)
 
 <h2>Project Documentation</h2>
 Click [here](https://github.com/vdharmaraj/PGDO_Proj3/blob/681fdb351bdec410700e161758e2cacc4ccc9bed/Documentation/PG%20DO%20-%20DevOps%20Certification%20Training_Project-3_Vignesh_Dharmaraj.pdf) to access the project documentation I have created to submit for my DevOps PG certification program requirements   
 
+<h2>Solution overview:</h2> 
+1) On a Linux (ubantu) machine, we are installing and configuring jenkins server.</br>
+2) In the jenkins server we are creating the pipeline based project (with the Jenkinsfile available in this repo as source)</br>
+3) First Stage in the pipeline is to pull the latest springboot application (index.html) changes from SCM (Git-Hub) 
+4) Next stage in the pipeline is to create a build using maven tool and the pom.xml file available in the code repository</br>
+5) Next stage in the pipeline will create docker image based on the standard java container with our jar executable created as a result of the build process in the previous step (Dockerfile available in the repo is responsible to create this image)</br>
+6) Next stage in the pipleline will push the lastest doker image created in the previous stage to the Docker Hub (remote image repository)</br>
+7) Next stage in the pipeline will remove any existing containers of our application</br>
+8) Next stage in the pipeline will start new container with the latest image (including our latest changes of springboot application) pulled from docker hub</br>
+9) Next stage in the pipeline will remove any old images in our linux machine</br>
+
 <h2>Mandatory changes to be made in Jenkinsfile when you want to use this project</h2>
+
 1. Its mandatory to change the Docker Hub Account ID after this Repo is forked/cloned by an other person</br>
-    def dockerhubaccountid = "vikidvg" </br>
+    def dockerhubaccountid = "vikidvg"</br>
     
 
 2. To push image to remote repository , in your jenkins server you have to create the global credentials similar to the 'dockerHub' (credential ID)</br>
