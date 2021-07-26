@@ -42,8 +42,9 @@ node {
 	}
    
    stage('Remove running container with old code'){
-	   //remove the container which is already running, when running 1st time named container will not be available so we are usign 'True' 
-	  sh "docker rm -f \$(docker ps -f name=devopsexample -q) || true"   
+	   //remove the container which is already running, when running 1st time named container will not be available so we are usign 'True'
+	   //added -a option to remove stopped container also
+	  sh "docker rm -f \$(docker ps -a -f name=devopsexample -q) || true"   
 	       
     }
 	
